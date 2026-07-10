@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Home,
   MessageSquare,
@@ -138,6 +139,7 @@ function QuickAccessTile({ item }) {
 export default function PoshanMitraDashboard() {
   const [activeNav, setActiveNav] = useState("Dashboard");
   const [profileOpen, setProfileOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen w-full bg-slate-50 flex text-slate-900">
@@ -163,7 +165,17 @@ export default function PoshanMitraDashboard() {
             return (
               <button
                 key={label}
-                onClick={() => setActiveNav(label)}
+                onClick={() => {
+                   setActiveNav(label);
+
+                   if (label === "Dashboard") {
+                      navigate("/");
+                    }
+
+                     if (label === "AI Chatbot") {
+                      navigate("/chatbot");
+                    }
+                }}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                   active
                     ? "bg-violet-50 text-violet-700"
@@ -379,10 +391,13 @@ export default function PoshanMitraDashboard() {
                 </div>
               </div>
 
-              <button className="mt-4 w-full bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold rounded-xl py-3 flex items-center justify-center gap-2 transition-colors">
+             <button
+                onClick={() => navigate("/chatbot")}
+                className="mt-4 w-full bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold rounded-xl py-3 flex items-center justify-center gap-2 transition-colors"
+             >
                 <MessageSquare className="w-4 h-4" />
-                Chat Now
-              </button>
+                 Chat Now
+             </button>
             </div>
 
             {/* Quick access */}
